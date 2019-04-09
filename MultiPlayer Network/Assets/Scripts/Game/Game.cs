@@ -138,11 +138,12 @@ public class Game : MonoBehaviour
         currentPlayer.viewPlayer = instance.GetComponent<ViewPlayer>();
         currentPlayer.viewPlayer.Start();
         currentPlayer.viewPlayer.connectID = currentPlayer_connectID;
-
+        currentPlayer.viewPlayer.bind_cameraFollow(CameraFollow);//MY
 
         currentPlayer.bind_viewManager(viewManager);
         viewManager.viewPlayers.Add(currentPlayer_connectID, currentPlayer.viewPlayer);
 
+        viewManager.bind_currentPlayer(currentPlayer);//MY
 
     }
 

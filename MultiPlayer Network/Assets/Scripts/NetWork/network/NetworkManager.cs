@@ -147,7 +147,7 @@ public class NetworkManager
                 syncFrames_list.Add(syncFrame);
             }
 
-            replyFrames[frame_count] = syncFrames_list;
+            replyFrames.Add(frame_count,syncFrames_list);
         }
 
         return replyFrames;

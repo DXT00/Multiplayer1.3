@@ -23,27 +23,76 @@ public class ViewPlayer : MonoBehaviour
     int touchTerrianMask;
     float max_y = 100f;
     float last_y = 2f;
+
+
+    float z = 0;
+    float x = 0;
+
+
+ float mouse_sensitive = 30f;
+    float dist_sensitive = 20f;
+    float rot_x = 0;
+    float rot_y = 0;
+
+    int key_x1 = 0;
+    int key_x2 = 0;
     Transform Transform;
+
+    public CameraFollow camera;
     public void Start()
     {
         msg_list = new List<CustomSyncMsg>();
         PlayerRigidbody = GetComponent<Rigidbody>();
         touchTerrianMask = LayerMask.GetMask("touchTerrian");
         Transform = gameObject.GetComponent<Transform>();
+        PlayerRigidbody.freezeRotation = true;
     }
 
 
-    public void Update()
+    public void FixedUpdate()
     {
 
+        //  float _mouseX = Input.GetAxis("Mouse X");
+        //  float _mouseY = Input.GetAxis("Mouse Y");
 
+
+        x += Input.GetAxis("Horizontal");
+        z += Input.GetAxis("Vertical");
+
+
+
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            key_x1++;
+            rot_x = 0;
+           // rot_y += _mouseY * mouse_sensitive;
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            key_x2++;
+            rot_x = 0;
+            // rot_y += _mouseY * mouse_sensitive;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            rot_x += key_x1 * (-mouse_sensitive);
+            key_x1 = 0;
+        }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+          
+            rot_x+= key_x2*(mouse_sensitive);
+            key_x2 = 0;
+            // rot_y += _mouseY * mouse_sensitive;
+        }
 
     }
 
     public List<CustomSyncMsg> get_local_input()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+      
         //Move(x, z);//不移动，等server发 replyframes
 
         float my = move_on_the_ground();
@@ -55,8 +104,29 @@ public class ViewPlayer : MonoBehaviour
         //    CmdShooting();
 
         msg_list.Clear();
-        CustomSyncMsg input_msg = new InputMessage(connectID, new Vector3(x, y, z));
-        msg_list.Add(input_msg);
+        if (x != 0 || z != 0)
+        {
+            CustomSyncMsg input_msg = new InputMessage(connectID, new Vector3(x, y, z));
+            msg_list.Add(input_msg);
+        }
+       
+        x = 0;
+        z = 0;
+
+       
+
+
+     
+
+        
+        if (rot_x != 0f || rot_y != 0f)
+        {
+            CustomSyncMsg rot_msg = new RotateMessage(connectID, new Vector2(rot_x, rot_y));
+            msg_list.Add(rot_msg);
+            rot_x = 0;
+            rot_y = 0;
+        }
+
         return msg_list;
     }
     public void Move(float horizontal, float vertical, float y)
@@ -76,6 +146,12 @@ public class ViewPlayer : MonoBehaviour
         Debug.Log("PlayerRigidbody.position + movement = " + (PlayerRigidbody.position + movement).x + "PlayerRigidbody.position + movement " + (PlayerRigidbody.position + movement).y);
     }
 
+    public void Rotate(float delta_x, float delta_y)
+    {
+        //现在只有绕自己的y轴旋转
+        Transform.Rotate(transform.up, delta_x, Space.Self);
+        Tool.Print("......................Rotating .........delta_x = " + delta_x.ToString());
+    }
 
 
     void CmdShooting()
@@ -117,6 +193,11 @@ public class ViewPlayer : MonoBehaviour
     public Rigidbody get_Rigidbody()
     {
         return PlayerRigidbody;
+    }
+
+    public void bind_cameraFollow(CameraFollow cameraFollow)
+    {
+        this.camera = cameraFollow;
     }
 }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
-
+    Player currentPlayer;
     public GameObject player_prefabs;//ViewManager从prefabs中spawn players!!
     public Dictionary<int, ViewPlayer> viewPlayers = new Dictionary<int, ViewPlayer>();//存储localPlayer在本地模拟的其他viewPlayers  (clientID--->ViewPlayer)
     Vector3 init = new Vector3(-74, 2, 37);
@@ -29,6 +29,10 @@ public class ViewManager : MonoBehaviour
         else
             Debug.Log("player_prefabs is null !");
         return instance;
+    }
+    public void bind_currentPlayer(Player currentPlayer)
+    {
+        this.currentPlayer = currentPlayer;
     }
 
     public ViewPlayer generate_other_viewPlayer(int clientID)
@@ -74,21 +78,24 @@ public class ViewManager : MonoBehaviour
                     viewPlayer.Move(Input_msg.moving_x, Input_msg.moving_z, Input_msg.moving_y);
 
 
-                    Debug.Log("executing frame----" + syncFrame.frame_count + "clientID " + clientID.ToString() + "..........is moving..."
-                        +"dist_x = "+Input_msg.moving_x*viewPlayer.get_speed()*Time.deltaTime+"dist_z="+ Input_msg.moving_z * viewPlayer.get_speed() * Time.deltaTime
+                    Debug.Log("executing frame----" + syncFrame.frame_count + " clientID " + clientID.ToString() + "..........is moving..."
+                        +" dist_x =  "+Input_msg.moving_x*viewPlayer.get_speed()*Time.deltaTime+" dist_z= "+ Input_msg.moving_z * viewPlayer.get_speed() * Time.deltaTime
                         +"y = "+Input_msg.moving_y);
                 }
                 else if (msg.msg_type == (int)RequestType.ROTATE)
                 {
-
+                    RotateMessage rot_msg =  msg as RotateMessage;
+                    viewPlayer.Rotate(rot_msg.delta_x, rot_msg.delta_y);
                 }
                 else if (msg.msg_type == (int)RequestType.SPAWN)
                 {
 
                 }
+                //如果是currentPlayer -->cameraFolllow
+                if(viewPlayer.connectID==currentPlayer.connectID)
+                    viewPlayer.camera.CameraUpdate();
 
 
-              
 
             }
 

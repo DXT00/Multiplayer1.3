@@ -16,11 +16,12 @@ public class Client
     List<byte> ReceiveCache;
     Queue<byte[]> SendCache;
 
-
+   
     public Client()
     {
         
         SendCache = new Queue<byte[]>();
+       
     }
     //这个data可能是几个msg的集合，需要递归decode
     public void Receive_HandleData(byte[] data)

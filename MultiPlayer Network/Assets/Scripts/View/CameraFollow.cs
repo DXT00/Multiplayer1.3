@@ -26,7 +26,7 @@ public class CameraFollow : MonoBehaviour
     }
    
 
-    void FixedUpdate()
+    public void CameraUpdate()
     {
         //if (game.start_flag && flag==true)
         //{

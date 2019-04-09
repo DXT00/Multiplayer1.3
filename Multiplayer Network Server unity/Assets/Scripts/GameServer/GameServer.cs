@@ -4,17 +4,20 @@ using UnityEngine;
 public class GameServer
 {
     NetworkManager networkManager;
-    Room room;
+    public Room room;
+    public GameObject InGameMgr;
     int t = 0;
     public GameServer()
     {
         networkManager = new NetworkManager();
-        CreateRoom();
+       
     }
 
     public void init()
     {
+        CreateRoom();
         networkManager.init();
+        room.bind_InGameMgr(InGameMgr);
     }
 
 
@@ -89,6 +92,9 @@ public class GameServer
         networkManager.SendDataTo(clientID, msg);
 
     }
-
+    public void bind_InGameMgr(GameObject InGameMgr)
+    {
+        this.InGameMgr = InGameMgr;
+    }
 }
 

@@ -28,8 +28,6 @@ public class Player
     }
 
 
-
-
     public void bind_viewManager(ViewManager viewManager)
     {
         this.viewManager = viewManager;
@@ -78,10 +76,10 @@ public class Player
     public void execute_frames()
     {
         Debug.Log("que size = " + executeQue.Count.ToString());
-      
+        //sending_t++;
         if (executeQue.Count != 0)
         {
-            max_sendingNum = executeQue.Count*2;
+            max_sendingNum = executeQue.Count;
         }
         while (executeQue.Count != 0)
         {
@@ -96,15 +94,17 @@ public class Player
             //执行第maxRecv_FrameCount帧
             viewManager.execute_frames(replyframe);//一般第一帧是空帧，第二帧才是有消息的帧
 
-            if (executeQue.Count == 0)
+            if (executeQue.Count == 0&&maxSend_FrameCount<maxExe_FrameCount)
             {
                 maxSend_FrameCount = maxExe_FrameCount;
             }
         }
-        if (max_sendingNum > 0)//控制发送的速率
+         if (max_sendingNum > 0)//控制发送的速率// if(sending_t>5)
+       
         {
-
+            
             get_local_input_send();
+            //sending_t = 0;
             max_sendingNum--;
         }
 
@@ -117,7 +117,7 @@ public class Player
         SyncFrame syncFrame = new SyncFrame(maxSend_FrameCount);//发送第maxSend_FrameCount帧
         syncFrame.msg_list = viewPlayer.get_local_input();
 
-        Tool.printMsgList("localInput + framecount = " + syncFrame.frame_count, syncFrame.msg_list);
+        Tool.printMsgList(" 还可以发送" + max_sendingNum + "帧"+" ， localInput + 正在发送 framecount = " + syncFrame.frame_count, syncFrame.msg_list);
 
 
 

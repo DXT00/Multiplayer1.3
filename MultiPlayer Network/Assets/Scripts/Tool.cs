@@ -19,8 +19,14 @@ public class Tool
             {
                 InputMessage input = msg as InputMessage;
 
-
                 str += " msg_type = INPUT" + "input.moving_x = " + input.moving_x + "input.moving_z = " + input.moving_z;
+            }
+            else if((msg.msg_type == (int)RequestType.ROTATE)) {  
+                RotateMessage rot = msg as RotateMessage;
+
+
+                str += " msg_type = ROTATE" + "rot.moving_x = " + rot.delta_x + "rot.moving_z = " + rot.delta_y;
+
             }
 
 
@@ -49,9 +55,16 @@ public class Tool
                     InputMessage input = msg as InputMessage;
 
 
-                    str += " msg_type = INPUT" + "input.moving_x = " + input.moving_x + "input.moving_z = " + input.moving_z+ "input.moving_y="+input.moving_y;
+                    str += " msg_type = INPUT" + " input.moving_x = " + input.moving_x + " input.moving_y = " + input.moving_y+ " input.moving_z="+input.moving_z;
                 }
+                else if ((msg.msg_type == (int)RequestType.ROTATE))
+                {
+                    RotateMessage rot = msg as RotateMessage;
 
+
+                    str += " msg_type = ROTATE" + "rot.moving_x = " + rot.delta_x + "rot.moving_z = " + rot.delta_y;
+
+                }
 
             }
         }
@@ -78,9 +91,16 @@ public class Tool
                         InputMessage input = msg as InputMessage;
 
 
-                        str += " |msg_type = INPUT" + "moving_x = " + input.moving_x + "moving_z = " + input.moving_z +"clientID = "+msg.player_id+"|";
+                        str += " |msg_type = INPUT" + " moving_x = " + input.moving_x + " moving_y = " + input.moving_y +" moving_z = " + input.moving_z +"clientID = "+msg.player_id+"|";
                     }
+                    else if ((msg.msg_type == (int)RequestType.ROTATE))
+                    {
+                        RotateMessage rot = msg as RotateMessage;
 
+
+                        str += "| msg_type = ROTATE" + " rot.moving_x = " + rot.delta_x + " rot.moving_z = " + rot.delta_y+" clientID = " + msg.player_id + "|";
+
+                    }
 
                 }
             }

@@ -1,4 +1,0 @@
-把Player的 capsule collider换成Box collider,这样player就不会穿过地形（Terrian）了。
-
-让Player贴着地面走：
-通过RayCast,从Player的位置发出一条垂直向下的射线，与touchTerrian的交点的y就是Player的y的位置

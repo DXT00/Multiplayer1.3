@@ -1,6 +1,6 @@
 WindowsStandalone
 PlayerPath?
-F:/Unity/MultiPlayer1.3/MultiPlayer Network/Game/Game.exe
+C:/Users/DXT00/Desktop/MultiPlayer1.3——copy/MultiPlayer Network/Game/Game.exe
 SceneListBegin?
 Assets/NatureStarterKit2/Scene/Demo.unity
 SceneListEnd?
@@ -19,7 +19,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 607d64d2c4bc76ac9876e6f7b9cc7edf UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 c08b196716247885d3b27f7f282b2568 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.ImageEffectBase
 a30beadf4d109f44144b9a9f42e61cbf Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.BlurOptimized
-70773b0f518fc09266886ee7d68a67d0 Assembly-CSharp.dll:.ViewPlayer
+c99e85e7cc2e5eff4e0c9d3cde66d17c Assembly-CSharp.dll:.ViewPlayer
 23b50ef73e2c1a8a76860d35bcbbf8fc Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.GlobalFog
 daabd8d8800a87cff11f866c4d06a232 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.ContrastStretch
 31ac2865258ddbc8f82525645ca875c2 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration
