@@ -1,0 +1,38 @@
+﻿public enum RequestType
+{
+    SPAWN,
+    ROTATE,
+    INPUT,
+    ENTERAREA,
+    LEAVEAREA
+}
+
+
+
+public enum CmdType
+{
+    NULL,
+    SPAWNINFO,
+    GETROOMS,
+    JOIN,
+    ASKFRAME,
+    ASKCHASEFRAME,
+    START,
+    FRAME,
+    GETFRAME,
+    ENTERAREA,
+    LEAVEAREA,
+
+    SYNC_FRAME,
+
+    REPLYGETROOMS,
+    REPLYJOIN,
+    REPLYASKFRAME,
+    REPLYASKCHASEFRAME,
+    REPLYSTART,
+    REPLYID,
+
+    TICK,
+    END,
+    HEART
+}
